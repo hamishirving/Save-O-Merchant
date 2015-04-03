@@ -1,0 +1,119 @@
+<div id="home">
+	<div class="fr_login">
+		<span class="title">Save-O for Merchants.</span>
+		<div style="padding-top:57px; width: 750px; margin: 0 auto;">
+
+
+			<div class="input">
+				<input type="text" name="" class="email" value="" placeholder="Email" ng-model="user.email">
+				<div class="icon_error hide">
+					<img src="assets/imgs/icon_error_alert.png" alt="">
+				</div>
+				<div style="text-align: left;" class="error_message hide"></div>
+			</div>
+			<div class="input">
+				<input type="password" class="password" name="" value="" placeholder="Password" ng-model="user.password">
+				<div class="icon_error hide">
+					<img src="assets/imgs/icon_error_alert.png" alt="">
+				</div>
+				<div style="text-align: left;" class="error_message hide"></div>
+			</div>
+			<div style="float: right;">
+				<input type="submit" class="login" name="" value="Merchant Login" ng-click="login();">
+			</div>
+			<div class="clearfix">
+
+			</div>
+		</div>
+
+	</div>
+	<div class="service">
+		<p class="title">About the Service</p>
+	</div>
+</div> <!-- end home -->
+<!-- Modal login -->
+<div class="modal fade" id="popup_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog dialog">
+	  <div class="modal-content">
+	 <!--    <div class="modal-header">
+	    </div> -->
+	    <div class="modal-body body">
+	      <div style="text-align: center; margin-bottom:15px;">
+	          <span class="lb">There was a problem logging in</span>
+	      </div>
+	      <div class="alert alert-danger hide">
+	      </div>
+	      <div style="margin-bottom: 5px;">
+	        <span class="lb">Email:</span>
+	        <input type="email" class="form-control email" name="" value="" placeholder="" ng-focus="focus_email();" value="{{user.email}}" ng-model="user.email">
+	        <span class="error_email error hide">Your email address was not recognised</span>
+	      </div>
+
+
+	      <div>
+	        <span class="lb">Password:</span>
+	        <input class="form-control password" type="password" class="form-control" name="" value="" placeholder="" ng-focus="check_email();" value="{{user.password}}">
+	        <span class="error_pass error hide"></span>
+	      </div>
+
+	      <div style="text-align: center; padding-top:5px;">
+	        <a class="forgot" href="javascript:void(0);" ng-click="forgotPassword();" title="">Forgot password</a>
+	      </div>
+	      <div class="action">
+	        <button type="button" class="cancel" data-dismiss="modal">Cancel</button>
+	        <button type="button" class="login pull-right" ng-click="popup_login();">Merchant Login</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</div>
+<!--Modal reset pass-->
+
+ <div class="modal fade" id="popup_resetpass" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog dialog" >
+        <div class="modal-content">
+            <div class="modal-body body">
+		          	<div class="instruction">
+		          	 	<span class="instruction_first" style="padding-left: 6px;font-weight:600">Enter the email address of your account and</span>
+		          	 	<span class="instruction_second">we will send you password reset instructions.</span>		          	   
+		          	 </div>     <!-- end instructtrion -->
+	          		<div class="form-reset">
+	            			<label class ="lbEmail">Email:</label>
+	            			<input type="text" ng-model="email" ng-focus="resetError" name="email" class=".form-control email" autocomplete ="off" autocorrect="off" autocapitalize="off" spellcheck="false" >
+	            			<div class="wrap-error">
+	            				<div class="div_error hide">
+									<img src="assets/imgs/icon_error_alert.png"alt="">
+								</div>
+								<span class="error_email hide"></span>
+	            			</div>
+	            	</div>
+	            	<div class="btn-action" >
+	          			<button type="button" class="s-btn-back back" data-dismiss="modal">Back</button>
+	          			<button type="button" class="reset-password" ng-click="resetPassword()" >Reset password</button>
+	          		</div>
+	        </div> <!-- end modal-body -->
+        </div> <!-- end modal-content -->
+      </div> <!-- end modal-dialog -->
+   	<div class="loading-dialog hide">
+			<img src="assets/imgs/loading.gif">
+	</div>
+ </div> <!-- end modal -->
+
+<!--Modal reset pass success-->
+ <div class="modal fade" id="resetSuccess" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog dialog" >
+        <div class="modal-content">
+            <div class="modal-body body">
+	          	<div class="success">
+	          			<img src="assets/imgs/icon_error_alert_success.png" class ="img_success" alt="">
+            			<label class ="lbSuccess">Success</label>
+            			<span class="lblnotify">Please check your email for instructions</span>
+	            	<div class="btn-action" >
+	          			<button type="button" class="s-btn-back back" ng-click="backLogin()">Back to Login</button>
+	          		</div>
+		        </div>  <!-- end reset -->
+	        </div> <!-- end modal-body -->
+        </div> <!-- end modal-content -->
+      </div>
+ </div> <!-- end modal -->

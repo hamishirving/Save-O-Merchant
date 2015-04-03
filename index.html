@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html ng-app="servoApp">
+<head>
+	<title>Save-O Merchant</title>
+	<link rel="shortcut icon" href="imgs/icon.png" />
+
+    <!-- compiled CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/saveo-merchant-0.0.1.css?v=1428074999" />
+
+    <!-- compiled JavaScript -->
+    <script type="text/javascript" src="vendor/jquery/jquery.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/moment.min.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/bootstrap.min.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/jquery/daterangepicker.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/raphael/raphael.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/angular/angular.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/angular/angular-resource.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/angular/angular-route.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/angular/angular-base64.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/angular/angular-cookies.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/angular/ng-bs-daterangepicker.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/angular/ui-bootstrap-tpls-0.12.0.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/atmosphere-min.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/angular/angular-atmosphere-service.js?v=1428074999"></script>
+    <script type="text/javascript" src="vendor/edge-works-messages.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/app.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/base.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/chart/chart.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/chart/model.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/controller.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/dashboard.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/directives.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/faqs.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/register.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/reset_password.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/service.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/setup_password.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/term_condition_ctrl.js?v=1428074999"></script>
+    <script type="text/javascript" src="src/app/transaction_detail.js?v=1428074999"></script>
+
+</head>
+<body>
+	<div id="loading-dialog">
+		<img src="assets/imgs/loading.gif"/>
+	</div>
+	<div id="header" ng-controller="HeaderCtrl" >
+		<div class="icon">
+			<a href="javascript:void(0);" ng-click="go_home();" title=""><img src="assets/imgs/icon_logo_header.png" alt=""></a>
+		</div>
+		<div class="become">
+			<span class="title" ng-hide="user.first_name || isShowProfile">Become a Save-O Merchant</span>
+			<div class="pull-right" id="profile-menu" ng-show="user.first_name || isShowProfile" show-menu>
+				<img id="head-avatar" class="xs-avatar" ng-src="{{$root.user.avatar}}">
+				<span id="head-first_name" class="user_name">{{$root.user.first_name}}</span>
+				<span class="dropdown">
+					<img src="assets/imgs/icon_arrow_down_blue.png" style="width:20px; margin-top: -1px; cursor: pointer;">
+				</span>
+				<div id="profile-menu-wrapper" class="container-fluid hide" click-anywhere-but-here>
+					<div class="row" style="padding-top:0;">
+						<div class="col-xs-12">
+							<ul>
+								<li>
+									<a href="javascript:void(0)" ng-click="openProfile()">Profile</a>
+								</li>
+								<li ng-click="logout()">
+									<a  href="javascript:void(0)">Logout</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div id="profile-menu-wrapper" class="container-fluid hide" ng-controller="HeaderCtrl" click-anywhere-but-here>
+		<div class="row" style="padding-top:0;">
+			<div class="col-xs-12">
+				<ul>
+					<li>
+						<a href="javascript:void(0)" ng-click="openProfile()">Profile</a>
+					</li>
+					<li ng-click="logout()">
+						<a  href="javascript:void(0)">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div ng-view style='min-height:550px'>
+
+	</div>
+	<div id="footer" ng-controller="FooterCtrl">
+		<div class="row">
+			<div class="col-md-4">
+				<span class="connect_with_us">Connect with us:</span>
+				<a class="item" href="mailto:" "email me">Email us</a>
+			</div>
+			<div class="col-md-4 icon">
+				<img src="assets/imgs/icon_logo_footer.png" alt="">
+			</div>
+			<div class="col-md-4" style="padding-left:15%;">
+				<span class="connect_with_us">Other pages:</span>
+				<a class="item" href="javascript:void(0)" ng-click="term_conditions();" title="">Terms & Conditions</a>
+				<a class="item" href="javascript:void(0)" ng-click="privacy_policy();" title="">Privacy Policy</a>
+				<a class="item" href="javascript:void(0);" ng-click="help();" title="">Help</a>
+			</div>
+		</div>
+		<div class="copy">
+			<span class="copy_right">&#169; Save-O 2014</span>
+		</div>
+
+	</div>
+	<!-- /*ng-minlength="6" ng-maxlength="20"*/ -->
+	<!-- Profile template -->
+	<script type="text/ng-template" id="modalEditProfile.html">
+        <div class="modal-body bg-modal-body">
+            <form name="editProfileForm" novalidate style="margin-bottom: 0px;">
+            	<div class="form-group">
+	            	<div class="form-group profile-label">
+	            		<label>Profile</label>
+	            	</div>
+	            	<div class="row">
+	            		<span class="error-message" ng-cloak ng-show="error.form.status">{{error.form.message}}</span>
+	            	</div>
+					<div class="row">
+				        <label for="exampleInputEmail1">First name:</label>
+				        <input ng-maxlength="70" id="txt_first_name" type="text" name="firstname" class="form-control"  ng-model="user.firstname" placeholder="Fisrt name" ng-blur="validateFirstName()" ng-focus="cleanThis('txt_first_name')">
+				        <span class="error-message hide"></span> <!--ng-show="editProfileForm.firstname.$required"-->
+				    </div>
+
+					<div class="row">
+				        <label for="exampleInputEmail1">Last name:</label>
+				        <input ng-maxlength="70" id="txt_last_name" name="lastname" type="text" class="form-control" ng-model="user.lastname"  placeholder="Last name" ng-blur="validateLastName()" ng-focus="cleanThis('txt_last_name')">
+				        <span class="error-message hide"></span>
+				    </div>
+
+				    <div class="row">
+				        <label for="exampleInputEmail1">Email:</label>
+				        <input type="email" id="txt_email" autocomplete="off" readonly="readonly" class="form-control" ng-model="user.email" placeholder="Enter email" ng-blur="validateEmail()" ng-focus="cleanThis('txt_email')">
+				        <span class="error-message hide"></span>
+				    </div>
+				    <div class="row">
+				        <label for="exampleInputPassword1">Password:</label>
+				        <input id="txt_password" name="password" type="password" class="form-control" ng-model="user.password" placeholder="Password" ng-blur="validatePassword()" ng-focus="cleanThis('txt_password')">
+				        <span class="error-message hide"></span>
+				    </div>
+				    <div class="row custom-file-input-wrapper" ng-mouseenter="" ng-mouseleave="">
+				        <input type="file" name="file" file-model="file"  accept="image/*" class="custom-file-input">
+				    </div>
+				    <div class="avatar-wrapper">
+				    	<img id="idAvatar" ng-src="{{user.avatar}}" />
+				    </div>
+				    <div class="row" style="margin-bottom: 0px;padding-top:15px;">
+				    	<div class="row-button clearfix">
+				    		<div style="width: 120px; float:left">
+				    			<button class="btn-cancel" ng-click="cancel()">Cancel</button>
+				    		</div>
+				    		<div style="width: 160px; float:right">
+				    			<button ng-disable="validToUpdate" type="submit" class="btn-save" ng-click="updateProfile()">Save</button>
+				    		</div>
+				    	</div>
+				    </div>
+				</div>
+			</form>
+        </div>
+    </script>
+
+</body>
+</html>

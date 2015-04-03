@@ -1,0 +1,33 @@
+<div class="modal-dialog dialog">
+  <div class="modal-content">
+ <!--    <div class="modal-header">
+    </div> -->
+    <div class="modal-body body">
+      <div style="text-align: center; margin-bottom:15px;">
+          <span class="lb">There was a problem logging in</span>
+      </div>
+      <div class="alert alert-danger hide">
+      </div>
+      <div>
+        <span class="lb">Email:</span>
+        <input type="email" class="form-control email" name="" value="" placeholder="" ng-focus="focus_email();" value="{{user.email}}">
+        <span class="error_email error hide"></span>
+      </div>
+
+
+      <div style="margin-top:15px;">
+        <span class="lb">Password:</span>
+        <input class="form-control password" type="password" class="form-control" name="" value="" placeholder="" ng-focus="check_email();" value="{{user.password}}">
+        <span class="error_pass error hide"></span>
+      </div>
+
+      <div style="text-align: center; padding-top:2px;">
+        <a class="forgot" href="javascript:void(0);" ng-click="forgotPassword();" title="">Forgot password</a>
+      </div>
+      <div class="action">
+        <button type="button" class="cancel" data-dismiss="modal">Cancel</button>
+        <button type="button" class="login pull-right" ng-click="popup_login();">Merchant Login</button>
+      </div>
+    </div>
+  </div>
+</div>

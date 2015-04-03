@@ -1,0 +1,19 @@
+<div id="term_conditons-header">
+	<div class="backlink">
+		<a href="javascript:void(0);" back-previous>Back</a>
+	</div>
+	<div class="title">Help</div>
+</div>
+<div id="faqs" class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12">
+			<ul class="list-question">
+
+				<li ng-repeat="faq in faqs" ng-class="{selected:$first}" faqs-question>
+					<div class="question">{{ faq.subject }}</div>
+					<div class="content" data-ng-bind-html="faq.content"></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

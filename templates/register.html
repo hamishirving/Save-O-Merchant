@@ -1,0 +1,65 @@
+<div id="register">
+	<div class ="contain">
+		<div class = "btn-cancel-register">
+			<button class="btn btn-default" ng-click ="cancel()"><span href="#" title="">Cancel</span></button>
+		</div>		<!-- end btn cancel -->
+
+		<div class="fr_register" >
+			<div class = "data">
+				<button class="btn-welcome">Welcome to Save-O</button>
+				<label class ="email">{{email}}</label>
+				<span class="register-detail"> Register your details</span>
+				<span class="error_message_reg hide">Email Address already registered</span>			
+				<div class="wrap_info" style="text-align: left;">
+							<label class ="lb_first_name">First name:</label>
+							<input type="text" id="reg_first_name"  class="first_name"/>
+							<div class="div_error hide">
+								<img src="assets/imgs/icon_error_alert.png"alt="">
+							</div>
+							<span class="error_message error_first_name hide">First name not valid</span>
+				</div> <!-- end .wrap_info first -->
+
+				<div class="wrap_info" style="text-align: left;">
+							<label class ="lb_last_name">Last name:</label>
+							<input type="text" id="reg_last_name" class="last_name" ng-focus="checkFirstName()">
+							<div class="div_error hide ">
+								<img src="assets/imgs/icon_error_alert.png">
+							</div>
+							<span class="error_message error_last_name hide"> Last name not valid</span>
+
+				</div>	<!-- end .wrap_info last-->
+
+				<div class="wrap_info" style="text-align: left;">
+							<label class ="lb_pass">Password:</label>
+							<input type="password" id="reg_pass" class="password" ng-focus="checkLastName()">
+							<div class="div_error hide ">
+								<img src="assets/imgs/icon_error_alert.png">
+							</div>
+							<span class="error_message error_last_name hide"> Password not valid</span>
+				</div>	<!-- end .wrap_info pass-->
+
+				<div class="row term_register">
+					  <div class="col-md-2">
+					  		<div class="wrap_checked" ng-click="checked()">
+								<span><img class="icon_tick hide " src="assets/imgs/icon_tick.png" style= "height: 20px;"></span>
+							</div>
+					  </div>
+					  <div class="col-md-10 term_service">
+					  		<span class ="agree_service">I have read and agree to the Service</span>
+							<label class = "term_condition"><a href="#">Terms & Conditions</a> </label>
+					  </div>
+
+				</div>
+				 <div class="error_message error_checked hide">
+			  		Please accept Terms & Conditions
+			  	</div>
+				<div class="wrap_register">
+					<div>
+							<button class="btn-register" ng-click="register();">Register</button>
+					</div>
+				</div>
+
+			</div> <!-- end div data -->
+		</div> <!-- end div fr_register -->
+	</div> <!-- end contain -->
+</div> <!-- end div register -->

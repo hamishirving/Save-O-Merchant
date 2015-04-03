@@ -1,0 +1,187 @@
+<div id="transaction_detail">
+    <div class="hide loading wrap_page">
+        <img src="assets/imgs/loading.gif">
+    </div>
+    <div class="mobi">
+        <img style="height:70px;" src="{{brand_image}}" alt="">
+        <div class="list-button">
+            <input type="button" value="Back" back-previous class="btn btn-cancel" id="btn-back" ng-click="">
+            <input type="button" value="Email Transaction History" class="btn btn-cancel" id="btn-email" ng-click="sendEmailTransactionHistory()">
+            <input type="button" value="Export Transaction History" class="btn btn-cancel" id="btn-export-trans" ng-click="showExportExcelOrCsv()">
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="content">
+        <div class="alert hide" id="notify-alert"></div>
+        <div class="transaction">
+            <div class="top">
+                Transaction value
+            </div>
+            <div class="inner-chart">
+                <div class="icon_chart_left" ng-click="previous_transactions()">
+                                <img src="assets/imgs/icon_arrow_left.jpg" alt="">
+                </div>
+                <div class="chart">
+                    <div id="chartContainer" style="width: 100%; height: 150px;">
+                    </div>
+                </div>
+                <div class="icon_chart_right" ng-click="next_transactions()">
+                                <img src="assets/imgs/icon_arrow_right.jpg" alt="">
+                </div>
+                <div id="loading-dialog-merchant-detail">
+                        <img src="assets/imgs/loading.gif"/>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="recent">
+            <div class="top">
+                <span>Recent transactions</span>
+                <div class="search">
+                    <span class="filter">
+                        <img class="icon_filter" src="assets/imgs/icon_search-date.png" alt="">
+                        <input class="daterange" readonly="true" type="daterange" ng-model="myDateRange" placeholder="Filter by date">
+                        <div class="fake_placeholder hide">Filter by date</div>
+                        <!-- <img src="imgs/icon_search-date.png" alt="">
+                        <span class="lb">Filter by date</span> -->
+                    </span>
+                    <img class="icon_search" src="assets/imgs/icon_home_search.png" alt="">
+                    <input class="search_input" type="text" name="" value="" placeholder="Search transaction #" ng-keypress="search($event);" ng-model="key">
+                </div>
+                <div class="btn-reset-filter" ng-click="resetFilter()">Reset Filter</div>
+                <div class="clearfix"></div>
+            </div>
+            <div style="position:relative">
+                <div class="loading hide" id="loading-transaction">
+                    <img src="assets/imgs/loading.gif" style="margin-top:10px;">
+                </div>
+                <div class="no_data" ng-hide="data.items.length > 0">{{no_data}}</div>
+                <div class="data-gridview">
+                    <table class="table data" ng-show="data.items.length > 0">
+                        <tbody>
+                            <!-- table-striped -->
+                            <!--  -->
+                            <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-click="showTransactionDetail(item.transactions_id)" ng-repeat="item in data.items" class="transaction-item" id="transaction-{{item.transactions_id}}">
+                                <td class="date">{{item.created_dated}}&nbsp;&nbsp;{{item.created_time}}</td>
+                                <td class="id">#{{item.transactions_id}}</td>
+                                <td class="fuel_type">{{item.name}}</td>
+                                <td class="price_on_liter">{{item.fuels_price}}/L</td>
+                                <!-- <td class="status">{{item.status == true ? 'SUCCESS' : 'FAIL'}}</td> -->
+                                <td class="price">{{item.total}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="paging" ng-if="showPaging">
+                    <div class="left">
+                        <span class="first" page="{{data.first}}" ng-click="changePage($event);">
+                            <img ng-if="if_first" src="assets/imgs/icon_pagination-first-grey.png" alt="">
+                            <img ng-if="!if_first" src="assets/imgs/icon_pagination-first.png" alt="">
+                        </span>
+                        <span class="pre" page="{{data.before}}" ng-click="changePage($event);">
+                            <img ng-if="if_first" src="assets/imgs/icon_pagination-prev-grey.png">
+                            <img ng-if="!if_first" src="assets/imgs/icon_pagination-prev.png" alt="">
+                        </span>
+                        <span class="current_page">
+                            {{data.current}} of {{data.total_pages}}
+                        </span>
+                    </div>
+                    <div class="right">
+                        <span class="next" page="{{data.next}}" ng-click="changePage($event);">
+                            <img ng-if="!if_last" src="assets/imgs/icon_pagination-next.png" alt="">
+                            <img ng-if="if_last" src="assets/imgs/icon_pagination-next-grey.png" alt="">
+                        </span>
+                        <span class="last" page="{{data.total_pages}}" ng-click="changePage($event);">
+                            <img ng-if="!if_last" src="assets/imgs/icon_pagination-last.png" alt="">
+                            <img ng-if="if_last" src="assets/imgs/icon_pagination-last-grey.png" alt="">
+                        </span>
+                    </div>
+                    <div class="clearfix">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="transaction_receipt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" >
+    <div class="hide loading">
+        <img src="assets/imgs/loading.gif">
+    </div>
+    <div class="modal-dialog dialog">
+      <div class="modal-content">
+     <!--    <div class="modal-header">
+        </div> -->
+        <div class="modal-body body">
+            <div class="title">Transaction details</div>
+            <div class="top">
+                <div id="datetime">
+                    <div id="date">{{detail.created_dated}}</div>
+                    <div id="time">{{detail.created_time}}</div>
+                </div>
+                <div id="transaction-id">#{{detail.transactions_id}}</div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="line"></div>
+            <div class="middle">
+                <div id="fuel-type">{{detail.name}}</div>
+                <div id="total-price"><!-- <span style="margin-right:2px">$</span> -->{{detail.total}}</div>
+                <div class="clearfix"></div>
+                <div id="amount">{{detail.numbers}} litre @ {{detail.fuels_price}}/L</div>
+
+                <!-- <div id="discount">*Discount*{{detail.discount}}</div>
+                <div id="discount-value">$0.00</div> -->
+                <div class="clearfix"></div>
+            </div>
+            <div class="line"></div>
+            <div class="bottom">
+                <div id="total">Total</div>
+                <div id="total-value"><span class="subpre">$</span>{{total_price}}</div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="list-button">
+                <input type="button" value="Close" class="btn btn-cancel" id="btn-close" ng-click="hideTransactionDetail()">
+                <a target="blank" class="btn btn-cancel" id="btn-export">Export</a>
+                <input type="button" value="Email" class="btn btn-cancel" id="btn-email" ng-click="sendEmailTransactionDetail()">
+                <div class="clearfix"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<!-- Modal prepare to add new pump -->
+    <div class="modal" id="export_transaction_history" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" >
+        <div class="modal-dialog dialog">
+          <div class="modal-content">
+            <div class="modal-body body">
+                <div id="title">Please choose type of format to export?</div>
+                <div class="choose_format">
+                    <div id="dropdown-type-file">
+                        <div class="selected">{{type_file}}</div>
+                        <div id="list-type-file" class="">
+                            <div class="item-detail" ng-click="exportTransactionDetailExcelOrCsv('excel')">
+                                <div class="item-name">Excel</div>
+                            </div>
+                            <div class="item-detail" ng-click="exportTransactionDetailExcelOrCsv('pdf')">
+                                <div class="item-name">PDF</div>
+                            </div>
+                            <div class="item-detail" ng-click="exportTransactionDetailExcelOrCsv('csv')">
+                                <div class="item-name">CSV</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                <div id="list-button">
+                    <button type="button" class="btn btn-cancel" id="btn-cancel" data-dismiss="modal">Close</button>
+                    <a type="button" target="blank" class="btn btn-cancel" id="btn-export-transaction">Export</a>
+                      
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- End modal -->

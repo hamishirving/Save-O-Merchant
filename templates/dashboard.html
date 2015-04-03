@@ -1,0 +1,162 @@
+<div id="dashboard">
+	<div class="mobi">
+		<img style="height:70px;" src="{{brand.images}}" alt="">
+		<div id="parent-alert"></div>
+	</div>
+	<div class="content">
+		<div class="station">
+			<div class="row station_info">
+				<div class="col-md-3 col-sm-3 col-xs-3" id="station-image">
+					<img src="{{station.image}}" alt="">
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-9" style="padding-right: 0px; padding-left:5px;">
+					<div style="padding-top:0;" class="row">
+						<div class="col-md-9 col-sm-9" id="station-name">
+							<!-- Strathfieldsaye -->
+							<span class="station_name">{{station.name}}</span>
+						</div>
+						<div class="col-md-3 col-sm-3 station_id">
+							<span class="text-right">ID#: {{bsb_number}}</span>
+						</div>
+					</div>
+					<!-- 951 Wellington St Strathfieldsaye, VIC, 3551 -->
+					<div class="station_address">{{station.full_address}}</div>
+					<div class="station_service">
+						<span class="item amenity {{service.class}}" ng-repeat="service in services">
+							<!-- <img src="imgs/icon_amenity-atm.png" class="img" alt=""> -->
+							<span class="name">{{service.name}}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row station_status">
+				<!-- <div class="col-md-4 col-sm-4 col-xs-4 status_item">
+					<span class="number">{{vehicles}}</span>
+					<span class="text" style="padding: 0 10px;">VEHICLES AT PUMPS</span>
+				</div> -->
+				<div class="col-md-6 col-sm-6 col-xs-6 status_item">
+					<span class="number">{{totalTransaction}}</span>
+					<span class="text">TRANSACTIONS TODAY</span>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-6 status_item last">
+					<span class="number">{{pumpAvailable}}</span>
+					<span class="text">AVAILABLE PUMPS</span>
+				</div>
+			</div>
+			<div class="clearfix">
+
+			</div>
+		</div>
+		<div class="fuel">
+			<div class="fuel_type">
+				<div class="top">
+					Fuel Types
+				</div>
+				<div class="fuel_content">
+					<div class="item" ng-repeat="fuel in fuels">
+						<div class="item_child {{fuel.lastInRow}}">{{fuel.name}}</div>
+						<div class="{{fuel.classBorder}}"></div>
+					</div><!-- 
+					<div class="item">
+						<div class="item_child"></div>
+						<div class="border"></div>
+					</div>
+					<div class="item">
+						<div class="item_child last"></div>
+						<div class="border"></div>
+					</div> -->
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="pumps">
+				<div class="top">
+					Available Pumps
+				</div>
+				<div class="pumps_content">
+					<div id="pump-no-{{pump.id}}" class="pumps_item item-pump {{pump.itemLast}}" ng-repeat="pump in pumps">
+						<div class="top {{pump.classAvailable}}"></div>
+						<span class="name">PUMP {{pump.id}}</span>
+						<span class="pump_fuel">{{pump.listOctane}}</span>
+					</div>
+					
+					<div class="pumps_item row_last" id="add-pump-here">
+						<span class="add"></span>
+					</div> 
+					<div class="clearfix">
+
+					</div>
+				</div>
+			</div>
+			<div class="clearfix">
+
+			</div>
+		</div>
+		<div class="transaction">
+			<div class="top">
+				Transaction value
+				<span style="display: inline-block; float: right;"><a style="color:#ffffff; text-decoration: underline;" href="#/transaction_detail" title="">Details</a></span>
+			</div>
+			<div class="inner-chart">
+				<div class="icon_chart_left" ng-click="previous_transactions()">
+					<img src="assets/imgs/icon_arrow_left.jpg" alt="">
+				</div>
+				<div class="chart">
+					<div id="chartContainer" style="width: 100%; height: 150px;">
+					</div>
+				</div>
+				<div class="icon_chart_right" ng-click="next_transactions()">
+					<img src="assets/imgs/icon_arrow_right.jpg" alt="">
+				</div>
+				<div class="clearfix"></div>
+			</div>	
+			<div id="loading-dialog-merchant">
+					<img src="assets/imgs/loading.gif"/>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal prepare to remove pump -->
+	<div class="modal" id="remove_pump" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" >
+	    <div class="modal-dialog dialog">
+	      <div class="modal-content">
+	        <div class="modal-body body">
+	        	<div class="hide loading"><img src="assets/imgs/loading.gif"></div>
+	        	<div class="" id="removePump-alert"></div>
+	        	<div id="question">Are you sure you want to remove this pump?</div>
+	        	<div id="list-button">
+		        	<input type="button" id="btn-remove" ng-click="removePump()" class="btn btn-cancel" value="Yes">
+		        	<input type="button" id="btn-cancel" class="btn btn-cancel" value="Cancel">
+		        </div>
+	        </div>
+	      </div>
+	    </div>
+	</div>
+	<!-- End modal -->
+
+	<!-- Modal prepare to add new pump -->
+	<div class="modal" id="add_pump" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" >
+	    <div class="modal-dialog dialog">
+	      <div class="modal-content">
+	        <div class="modal-body body">
+	        	<div class="hide loading"><img src="assets/imgs/loading.gif"></div>
+	        	<div class="" id="addPump-alert"></div>
+	        	<div id="title">Select from fuel pumps available</div>
+	        	<div id="pump-list">
+	        		<div id="pump-detail">
+	        			<div id="list-detail">
+	        				<div ng-click="selectPumpToAdd(pump)" class="item-detail" ng-repeat="pump in add_pumps"><div class="mini-item">Pump No.{{pump}}</div></div>
+	        			</div>
+	        		</div>
+	        	</div>
+	        	<div id="contact">If there is a pump that you wish to add that is not on the list, you must contact Save-O to add a new pump</div>
+	        	<div id="list-button">
+	        		<input type="button" id="btn-add-pump" class="btn btn-cancel" value="Add pump" ng-click="addPump()">
+		        	<input type="button" id="btn-cancel" class="btn btn-cancel" value="Cancel">
+		        	<div class="clearfix"></div>
+	        	</div>
+	        </div>
+	      </div>
+	    </div>
+	</div>
+	<!-- End modal -->
+</div>
